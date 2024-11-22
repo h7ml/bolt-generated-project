@@ -5,7 +5,7 @@ on:
     branches: [ main ]
 
 jobs:
-  build:
+  build-and-deploy:
     runs-on: ubuntu-latest
 
     steps:
@@ -25,7 +25,6 @@ jobs:
     - name: Install dependencies and generate lockfile
       run: |
         pnpm install
-        pnpm install  # Run again to ensure lockfile is generated
 
     - name: Build
       run: pnpm run build
@@ -35,7 +34,8 @@ jobs:
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         publish_dir: ./dist
+        force_orphan: true
 
     - name: Output deployment URL
       run: |
-        echo "Deployed to https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/"
+        echo "Deployed to https://h7ml.github.io/bolt-generated-project/"
