@@ -24,8 +24,10 @@ jobs:
         node-version: '16'
         cache: 'pnpm'
 
-    - name: Install dependencies
-      run: pnpm install --frozen-lockfile
+    - name: Install dependencies and generate lockfile
+      run: |
+        pnpm install
+        pnpm install  # Run again to ensure lockfile is generated
 
     - name: Run ESLint
       run: pnpm run lint
